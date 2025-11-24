@@ -1,14 +1,16 @@
 import spacy
 
-nlp = spacy.blank("en")
+from spacy.matcher import Matcher
 
-doc = nlp("In 1990, more than 60% of people in East Asia were in extreme poverty. "
-    "Now less than 4% are.")
+nlp = spacy.load("en_core_web_sm")
 
-for token in doc:
+matcher = Matcher(nlp.vocab)
 
-    if token.is_alpha:
-        next_token = doc[token.i + 1]
+pattern = [{"TEXT": "iPhone"}, {"TEXT": "X"}]
+matcher.add("IPHONE_PATTERN", [pattern])
 
-        if next_token.text == "%":
-            print("Percentage found:", token.text)
+doc = nlp("Upcoming iPhone X release date leaked")
+
+matches = matcher(doc)
+
+print(matches)
