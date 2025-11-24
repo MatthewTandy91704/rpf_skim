@@ -2,11 +2,13 @@ import spacy
 
 nlp = spacy.blank("en")
 
-doc = nlp("It costs $5.")
+doc = nlp("In 1990, more than 60% of people in East Asia were in extreme poverty. "
+    "Now less than 4% are.")
 
-print("Index: ", [token.i for token in doc])
-print("Text: ", [token.text for token in doc])
+for token in doc:
 
-print("is_alpha:", [token.is_alpha for token in doc])
-print("is_punct:", [token.is_punct for token in doc])
-print("like_num:", [token.like_num for token in doc])
+    if token.is_alpha:
+        next_token = doc[token.i + 1]
+
+        if next_token.text == "%":
+            print("Percentage found:", token.text)
