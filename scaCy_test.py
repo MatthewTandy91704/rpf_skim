@@ -1,19 +1,25 @@
 import spacy
-from spacy.matcher import Matcher
 
-nlp = spacy.load("en_core_web_sm")
+nlp = spacy.blank("en")
+doc = nlp("I have a cat")
 
-nlp.vocab.strings.add("coffee")
-coffee_hash = nlp.vocab.strings["coffee"]
-coffee_string = nlp.vocab.strings[coffee_hash]
+# Look up the hash for the word "cat"
+cat_hash = nlp.vocab.strings["cat"]
+print(cat_hash)
 
-print(coffee_hash)
-print(coffee_string)
+# Look up the cat_hash to get the string
+cat_string = nlp.vocab.strings[cat_hash]
+print(cat_string)
 
-doc = nlp("I love coffee")
+import spacy
 
-lexeme = nlp.vocab["coffee"]
+nlp = spacy.blank("en")
+doc = nlp("David Bowie is a PERSON")
 
-print(lexeme.text, lexeme.orth, lexeme.is_alpha)
+# Look up the hash for the string label "PERSON"
+person_hash = nlp.vocab.strings["PERSON"]
+print(person_hash)
 
-#lexeme = entry in the vocabulary
+# Look up the person_hash to get the string
+person_string = nlp.vocab.strings[person_hash]
+print(person_string)
