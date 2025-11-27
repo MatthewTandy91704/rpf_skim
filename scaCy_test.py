@@ -23,3 +23,17 @@ print(person_hash)
 # Look up the person_hash to get the string
 person_string = nlp.vocab.strings[person_hash]
 print(person_string)
+
+from spacy.tokens import Doc, Span
+
+words = ["Hello", "world", "!"]
+spaces = [True, False, False]
+
+doc = Doc(nlp.vocab, words = words, spaces = spaces)
+
+span = Span(doc, 0, 2)
+
+span_with_label = Span(doc, 0, 2, label="GREETING")
+
+doc.ents = [span_with_label]
+
