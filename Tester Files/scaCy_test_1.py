@@ -36,13 +36,6 @@ print(doc1.similarity(doc2))
 
 print(doc2.similarity(doc1))
 
-pattern = [{"TEXT": "iOS"}, {"IS_DIGIT": True}]
-
-# Add the pattern to the matcher and apply the matcher to the doc
-matcher.add("IOS_VERSION_PATTERN", [pattern])
-matches = matcher(doc)
-print("Total matches found:", len(matches))
-
 # testing for actual use case using an old message from Sol as my nlp
 # this leads to a full proof of concept for at least the factor of picking out distancing
 # in fact distancing would be very easy
@@ -51,14 +44,21 @@ test = nlp("Umeko’s expression shifted in confusion underneath her mask as she
 
 distancing_pattern = [{"IS_DIGIT": True}, {"TEXT": "meters"}]
 matcher.add("METER_PLURAL_PATTERN", [distancing_pattern])
-matches = matcher(test)
 
 distancing_pattern = [{"IS_DIGIT": True}, {"TEXT": "m"}]
 matcher.add("METER_ABV_PATTERN", [distancing_pattern])
-matches = matcher(test)
 
 distancing_pattern = [{"IS_DIGIT": True}, {"TEXT": "meter"}]
 matcher.add("METER_SINGULAR_PATTERN", [distancing_pattern])
+
+distancing_pattern = [{"IS_DIGIT": True}, {"TEXT": "feet"}]
+matcher.add("FEET_PLURAL_PATTERN", [distancing_pattern])
+
+distancing_pattern = [{"IS_DIGIT": True}, {"TEXT": "ft"}]
+matcher.add("FEET_ABV_PATTERN", [distancing_pattern])
+
+distancing_pattern = [{"IS_DIGIT": True}, {"TEXT": "foot"}]
+matcher.add("FOOT_SINGULAR_PATTERN", [distancing_pattern])
 matches = matcher(test)
 
 print("Total matches found:", len(matches))
